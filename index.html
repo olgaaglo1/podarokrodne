@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>С днём рождения, Ксюша!</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Marck+Script&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #1a0a14;
+    font-family: 'Cormorant Garamond', serif;
+    color: #f8e8f0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(1px 1px at 10% 20%, #fff, transparent),
+      radial-gradient(1px 1px at 30% 70%, #fff, transparent),
+      radial-gradient(1px 1px at 50% 10%, #fff, transparent),
+      radial-gradient(1px 1px at 70% 50%, #fff, transparent),
+      radial-gradient(1px 1px at 90% 80%, #fff, transparent),
+      radial-gradient(1px 1px at 15% 90%, #fff, transparent),
+      radial-gradient(1px 1px at 85% 15%, #fff, transparent);
+    opacity: 0.4;
+    pointer-events: none;
+    animation: twinkle 4s ease-in-out infinite alternate;
+  }
+
+  @keyframes twinkle {
+    from { opacity: 0.2; }
+    to { opacity: 0.6; }
+  }
+
+  h1 {
+    font-family: 'Marck Script', cursive;
+    font-size: clamp(1.6rem, 6vw, 2.8rem);
+    color: #f8bbd0;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 0 0 20px rgba(248, 187, 208, 0.5);
+    z-index: 1;
+  }
+
+  #box-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    z-index: 1;
+    margin-bottom: 20px;
+  }
+
+  /* ===== КОРОБКА ===== */
+  .box {
+    width: 160px;
+    height: 160px;
+    position: relative;
+    cursor: pointer;
+    animation: sway 2.5s ease-in-out infinite;
+    transition: transform 0.3s ease;
+    perspective: 800px;
+  }
+
+  .box:hover { transform: scale(1.05); }
+
+  @keyframes sway {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+  }
+
+  .box-shadow {
+    position: absolute;
+    bottom: -12px;
+    left: 8%;
+    width: 84%;
+    height: 18px;
+    background: radial-gradient(ellipse, rgba(0,0,0,0.55), transparent 70%);
+    border-radius: 50%;
+    filter: blur(5px);
+    transition: all 0.4s ease;
+  }
+
+  .box.pop .box-shadow {
+    transform: scale(1.15);
+    opacity: 0.5;
+  }
+
+  .box-base {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 105px;
+  }
+
+  .box-front {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, #f8bbd0 0%, #f06292 45%, #c2185b 100%);
+    border-radius: 4px 4px 8px 8px;
+    box-shadow:
+      inset 0 -10px 20px rgba(0,0,0,0.2),
+      inset 0 3px 8px rgba(255,255,255,0.35);
+  }
+
+  .box-front::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    width: 35%;
+    height: 55%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.45), transparent 70%);
+    border-radius: 4px;
+    filter: blur(3px);
+  }
+
+  .box-side {
+    position: absolute;
+    top: 0;
+    right: -12px;
+    width: 12px;
+    height: 100%;
+    background: linear-gradient(180deg, #ad1457, #880e4f);
+    border-radius: 0 6px 6px 0;
+    transform: skewY(-8deg);
+    transform-origin: top left;
+    box-shadow: inset 3px 0 6px rgba(0,0,0,0.3);
+  }
+
+  .ribbon-front {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 22px;
+    height: 100%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, #fce4ec, #ffffff 50%, #fce4ec);
+    box-shadow: 0 0 10px rgba(255,255,255,0.5);
+  }
+
+  .box-lid {
+    position: absolute;
+    top: 0;
+    left: -10px;
+    width: calc(100% + 20px);
+    height: 40px;
+    transform-origin: bottom center;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    z-index: 2;
+  }
+
+  .box.pop .box-lid {
+    transform: translateY(-140px) rotate(-18deg);
+    opacity: 0;
+  }
+
+  .lid-
+top {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, #fce4ec 0%, #f48fb1 60%, #ec407a 100%);
+    border-radius: 6px;
+    box-shadow:
+      0 6px 16px rgba(0,0,0,0.35),
+      inset 0 2px 6px rgba(255,255,255,0.6);
+  }
+
+  .lid-side {
+    position: absolute;
+    top: 4px;
+    right: -10px;
+    width: 10px;
+    height: 100%;
+    background: linear-gradient(180deg, #c2185b, #880e4f);
+    border-radius: 0 5px 5px 0;
+    transform: skewY(-8deg);
+    transform-origin: top left;
+    box-shadow: inset 2px 0 5px rgba(0,0,0,0.3);
+  }
+
+  .ribbon-lid-h {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    transform: translateY(-50%);
+    background: linear-gradient(180deg, #fce4ec, #ffffff 50%, #fce4ec);
+    box-shadow: 0 0 10px rgba(255,255,255,0.5);
+  }
+
+  .ribbon-lid-v {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 22px;
+    height: 100%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, #fce4ec, #ffffff 50%, #fce4ec);
+    box-shadow: 0 0 10px rgba(255,255,255,0.5);
+  }
+
+  /* ===== БАНТ ===== */
+  .bow {
+    position: absolute;
+    top: -42px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 60px;
+    filter: drop-shadow(0 6px 8px rgba(0,0,0,0.35));
+  }
+
+  .bow-loop {
+    position: absolute;
+    top: 0;
+    width: 42px;
+    height: 40px;
+    background: radial-gradient(circle at 30% 30%, #f48fb1, #ec407a 70%, #ad1457);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    box-shadow: inset 0 -4px 8px rgba(0,0,0,0.25), inset 0 3px 6px rgba(255,255,255,0.4);
+  }
+
+  .bow-left {
+    left: 6px;
+    transform: rotate(-20deg);
+  }
+
+  .bow-right {
+    right: 6px;
+    transform: rotate(20deg) scaleX(-1);
+  }
+
+  .bow-knot {
+    position: absolute;
+    top: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 22px;
+    height: 20px;
+    background: radial-gradient(circle at 35% 30%, #f8bbd0, #ec407a 60%, #ad1457);
+    border-radius: 50%;
+    box-shadow: inset 0 -3px 6px rgba(0,0,0,0.3);
+    z-index: 2;
+  }
+
+  .bow-tail {
+    position: absolute;
+    top: 34px;
+    width: 16px;
+    height: 30px;
+    background: linear-gradient(180deg, #ec407a, #ad1457);
+    border-radius: 0 0 8px 8px;
+  }
+
+  .bow-tail-l {
+    left: 28px;
+    transform: rotate(12deg);
+  }
+
+  .bow-tail-r {
+    right: 28px;
+    transform: rotate(-12deg);
+  }
+
+  /* ===== ПОДСКАЗКА ===== */
+  .hint {
+    font-size: 1.1rem;
+    color: #f8bbd0;
+    text-align: center;
+    animation: pulse 2s ease-in-out infinite;
+    min-height: 1.5em;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  /* ===== СЕТКА ПОДАРКОВ ===== */
+  #gifts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+    width: 100%;
+    max-width: 900px;
+    z-index: 1;
+  }
+
+  .gift {
+    background: linear-gradient(145deg, #2a1220, #1f0d18);
+    border: 1px solid rgba(248, 187, 208, 0.3);
+    border-radius: 16px;
+    padding: 20px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    opacity: 0;
+    transform: translateY(40px) scale(0.8);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+  }
+
+  .gift.show {
+    animation: popIn 0.5s ease forwards;
+  }
+
+  @keyframes popIn {
+    0% { opacity: 0; transform: translateY(40px) scale(0.8); }
+    60% { opacity: 1; transform: translateY(-8px) scale(1.05); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .gift:hover {
+    transform: translateY(-6px) scale(1.04);
+    border-color: #f8bbd0;
+    box-shadow: 0 12px 30px rgba(248, 187, 208, 0.3);
+  }
+
+  .gift svg {
+    width: 48px;
+    height: 48px;
+    display: block;
+    margin: 0 auto 8px;
+    filter: drop-shadow(0 0 8px rgba(248, 187, 208, 0.4));
+  }
+
+  .gift .name {
+    font-size: 0.95rem;
+    color: #f8bbd0;
+    line-height: 1.3;
+  }
+
+  #final-btn {
+    display: none;
+    margin-top: 25px;
+    back
+ground: linear-gradient(135deg, #f8bbd0, #f48fb1);
+    color: #1a0a14;
+    border: none;
+    padding: 14px 36px;
+    font-size: 1.05rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(248, 187, 208, 0.5);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    z-index: 1;
+  }
+
+  #final-btn:hover {
+    transform: scale(1.06);
+    box-shadow: 0 0 40px rgba(248, 187, 208, 0.8);
+  }
+
+  #modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  #modal.active { display: flex; }
+
+  .modal-card {
+    background: linear-gradient(145deg, #2a1220, #1a0a14);
+    border: 1px solid #f8bbd0;
+    border-radius: 20px;
+    padding: 35px 25px;
+    max-width: 460px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 0 60px rgba(248, 187, 208, 0.3);
+    animation: modalIn 0.4s ease;
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.85); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .modal-card svg {
+    width: 64px;
+    height: 64px;
+    display: block;
+    margin: 0 auto 15px;
+  }
+
+  .modal-card .m-title {
+    font-size: 1.25rem;
+    color: #f8bbd0;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  .modal-card .m-text {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #f8e8f0;
+    margin-bottom: 22px;
+  }
+
+  .modal-card button {
+    background: transparent;
+    border: 1px solid #f8bbd0;
+    color: #f8bbd0;
+    padding: 10px 28px;
+    border-radius: 50px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .modal-card button:hover {
+    background: #f8bbd0;
+    color: #1a0a14;
+  }
+
+  #final-screen {
+    display: none;
+    z-index: 1;
+    max-width: 600px;
+    text-align: center;
+    padding: 30px;
+    animation: modalIn 0.6s ease;
+  }
+
+  #final-screen h2 {
+    font-family: 'Marck Script', cursive;
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    color: #f8bbd0;
+    margin-bottom: 20px;
+    text-shadow: 0 0 25px rgba(248, 187, 208, 0.6);
+  }
+
+  #final-screen p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #f8e8f0;
+  }
+
+  .confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    top: -20px;
+    z-index: 200;
+    pointer-events: none;
+    animation: fall linear forwards;
+  }
+
+  @keyframes fall {
+    to {
+      transform: translateY(110vh) rotate(720deg);
+      opacity: 0;
+    }
+  }
+
+  max-width: 500px {
+    #gifts-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .gift { padding: 16px 8px; }
+    .gift svg { width: 40px; height: 40px; }
+    .gift .name { font-size: 0.85rem; }
+    .box { width: 130px; height: 130px; }
+    .bow { top: -36px; transform: translateX(-50%) scale(0.85); }
+  }
+</style>
+</head>
+<body>
+
+<h1>С днём рождения, Родня!</h1>
+
+<div id="box-area">
+  <div class="box" id="box" onclick="popGift()">
+    <div class="box-shadow"></div>
+    <div class="box-base">
+      <div class="box-front"></div>
+      <div class="box-side"></div>
+      <div class="ribbon-front"></div>
+    </div>
+    <div class="box-lid">
+      <div class="lid-top"></div>
+      <div class="lid-side"></div>
+      <div class="ribbon-lid-h"></div>
+      <div class="ribbon-lid-v"></div>
+      <div class="bow">
+        <div class="bow-loop bow-left"></div>
+        <div class="bow-loop bow-right"></div>
+        <div class="bow-knot"></div>
+        <div class="bow-tail bow-tail-l"></div>
+        <div class="bow-tail bow-tail-r"></div>
+      </div>
+    </div>
+  </div>
+  <div class="hint" id="hint">Нажми на коробку, чтобы открыть первый подарок</div>
+</div>
+
+<div id="gifts-grid"></div>
+
+<button id="final-btn" onclick="showFinal()">Показать главное поздравление</button>
+
+<div id="final-screen">
+  <h2>Дорогая подруженька!</h2>
+  <p>С днём рождения! Будь самой счастливой на свете! Рада, что ты есть. Надеюсь, наши игры в телеграм с подсчётом баллов и табличкой эксель не закончатся никогда, как и наша дружба. Лав!</p>
+</div>
+
+<div id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-card">
+    <div id="m-icon"></div>
+    <div class="m-title" id="m-title"></div>
+    <div class="m-text" id="m-text"></div>
+    <button onclick="closeModal()">Закрыть</button>
+  </div>
+</div>
+
+<script>
+const icons = {
+  letter: '<svg viewBox="0 0 48 48"><rect x="4" y="10" width="40" height="28" rx="3" fill="#fce4ec" stroke="#f8bbd0" stroke-width="2"/><path d="M4 12 L24 26 L44 12" fill="none" stroke="#f8bbd0" stroke-width="2"/></svg>',
+  key: '<svg viewBox="0 0 48 48"><circle cx="16" cy="16" r="8" fill="none" stroke="#f8bbd0" stroke-width="3"/><path d="M22 22 L40 40 M32 32 L36 28 M28 28 L32 24" stroke="#f8bbd0" stroke-width="3" fill="none" stroke-linecap="round"/></svg>',
+  theater: '<svg viewBox="0 0 48 48"><path d="M8 10 Q24 6 40 10 Q42 24 36 36 Q24 42 12 36 Q6 24 8 10Z" fill="#2a1220" stroke="#f8bbd0" stroke-width="2"/><circle cx="18" cy="20" r="3" fill="#f8bbd0"/><circle cx="30" cy="20" r="3" fill="#f8bbd0"/><path d="M16 30 Q24 36 32 30" fill="none" stroke="#f8bbd0" stroke-width="2"/></svg>',
+  notebook: '<svg viewBox="0 0 48 48"><rect x="10" y="6" width="28" height="36" rx="2" fill="#1f0d18" stroke="#f8bbd0" stroke-width="2"/><line x1="16" y1="14" x2="32" y2="14" stroke="#f8bbd0" stroke-width="1.5"/><line x1="16" y1="20" x2="32" y2="20" stroke="#f8bbd0" stroke-width="1.5"/><line x1="16" y1="26" x2="28" y2="26" stroke="#f8bbd0" stroke-width="1.5"/><rect x="8" y="10" width="4" height="4" fill="#f8bbd0"/><rect x="8" y="20" width="4" height="4" fill="#f8bbd0"/><rect x="8" y="30" width="4" height="4" fill="#f8bbd0"/></svg>',
+  cassette: '<svg viewBox="0 0 48 48"><rect x="4" y="12" width="40" height="24" rx="3" fill="#2a1220" stroke="#f8bbd0" stroke-width="2"/><circle cx="16" cy="24" r="5" fill="none" stroke="#f8bbd0" stroke-width="2"/><circle cx="32" cy="24" r="5" fill="none" stroke="#f8bbd0" stroke-width="2"/><rect x="18" y="30" width="12" height="3" fill="#f8bbd0"/></svg>',
+  pan: '<svg viewBox="0 0 48 48"><ellipse cx="20" cy="30" rx="14" ry="8" fill="#2a1220" stroke="#f8bbd0" stroke-width="2"/><path d="M34 26 L44 20" stroke="#f8bbd0" stroke-width="3" stroke-linecap="round"/><ellipse cx="20" cy="28" rx="10" ry="5" fill="none" stroke="#f8bbd0" stroke-width="1.5"/></svg>'
+};
+
+const gifts = [
+  { icon: 'letter', name: 'Письмо из Хогвартса', text: 'Ты зачислена в Школу Волшебства. На уроке зельеварения создашь эликсир от тревожности.' },
+  { icon: 'key', name: 'Ключница', text: 'Для подъёма настроения.' },
+  { icon: 'theater', name: 'Билет в театр', text: 'На Высоцкого-младшего. Незабываемые впечатления.' },
+  { icon: 'notebook', name: 'Блокнот скорпиона', text: 'Для жалоб на бесячую работу и перестановку записей от Еленки.' },
+  { icon: 'cassette', name: 'Кассета со «Сватами»', text: 'Для радости души и сердца.' },
+  { icon: 'pan', name: 'Кастрюли и пылесос', text: 'Нужное. Всё-таки возраст уже...' }
+];
+
+let currentIndex = 0;
+
+function popGift() {
+  if (currentIndex >= gifts.length) return;
+
+  const box = document.getElementById('box');
+  box.classList.add('pop');
+  fireConfetti(40);
+
+  const g = gifts[currentIndex];
+
+  setTimeout(() => {
+    box.classList.remove('pop');
+
+    const grid = document.getElementById('gifts-grid');
+    const card = document.createElement('div');
+    card.className = 'gift';
+    card.innerHTML = icons[g.icon] + `<span class="name">${g.name}</span>`;
+    card.onclick = () => openModal(g);
+    grid.appendChild(card);
+
+    requestAnimationFrame(() => {
+      card.classList.add('show');
+    });
+
+    currentIndex++;
+
+    const hint = document.getElementById('hint');
+    if (currentIndex >= gifts.length) {
+      hint.textContent = 'Все подарки открыты!';
+      document.getElementById('final-btn').style.display = 'inline-block';
+    } else {
+      hi
+nt.textContent = `Нажми ещё раз (${currentIndex} из ${gifts.length})`;
+    }
+  }, 400);
+}
+
+function openModal(g) {
+  document.getElementById('m-icon').innerHTML = icons[g.icon];
+  document.getElementById('m-title').textContent = g.name;
+  document.getElementById('m-text').textContent = g.text;
+  document.getElementById('modal').classList.add('active');
+  fireConfetti(25);
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('active');
+}
+
+function showFinal() {
+  document.getElementById('box-area').style.display = 'none';
+  document.getElementById('gifts-grid').style.display = 'none';
+  document.getElementById('final-btn').style.display = 'none';
+  document.getElementById('final-screen').style.display = 'block';
+  fireConfetti(150);
+}
+
+function fireConfetti(count) {
+  const colors = ['#f8bbd0', '#f48fb1', '#ec407a', '#fce4ec', '#c2185b', '#ffffff'];
+  for (let i = 0; i < count; i++) {
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.left = Math.random() * 100 + 'vw';
+    c.style.background = colors[Math.floor(Math.random() * colors.length)];
+    c.style.animationDuration = (2 + Math.random() * 2) + 's';
+    c.style.animationDelay = Math.random() * 0.5 + 's';
+    c.style.width = c.style.height = (6 + Math.random() * 8) + 'px';
+    c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 5000);
+  }
+}
+</script>
+</body>
+</html>

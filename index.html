@@ -457,7 +457,22 @@ ground: linear-gradient(135deg, #f8bbd0, #f48fb1);
     line-height: 1.8;
     color: #f8e8f0;
   }
+.bowling-anim {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+}
 
+/* Анимация катящегося шара */
+.bowling-anim .ball {
+  animation: roll 2s linear infinite;
+}
+
+@keyframes roll {
+  0% { transform: translateY(-20px) scale(0.8); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(20px) scale(1); opacity: 0; }
+}
   .confetti {
     position: fixed;
     width: 10px;
@@ -521,7 +536,34 @@ ground: linear-gradient(135deg, #f8bbd0, #f48fb1);
 <div id="final-screen">
   <h2>Дорогая подруженька!</h2>
   <p>С днём рождения! Будь самой счастливой на свете! Рада, что ты есть. Надеюсь, наши игры в телеграм с подсчётом баллов и табличкой эксель не закончатся никогда, как и наша дружба. Лав!</p>
-</div>
+<div class="bowling-anim">
+  <svg viewBox="0 0 200 100" width="200" height="100">
+    <!-- Дорожка -->
+    <path d="M 20 90 L 180 90 L 150 40 L 50 40 Z" fill="#2a1220" stroke="#f8bbd0" stroke-width="1.5"/>
+    
+    <!-- Кегли -->
+    <g class="pins" fill="#f8bbd0">
+      <circle cx="100" cy="50" r="5" />
+      <circle cx="85" cy="55" r="5" />
+      <circle cx="115" cy="55" r="5" />
+      <circle cx="70" cy="60" r="5" />
+      <circle cx="100" cy="60" r="5" />
+      <circle cx="130" cy="60" r="5" />
+    </g>
+    
+    <!-- Катящийся шар -->
+    <g> class="ball">
+      <circle cx="100" cy="85" r="10" fill="#ec407a" stroke="#fce4ec" stroke-width="2">
+        <animate attributeName="cx" values="100; 100; 100" dur="2s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="85; 85; 85" dur="2s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="100" cy="85" r="3" fill="#1a0a14">
+        <animate attributeName="cx" values="100; 100; 100" dur="2s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="85; 85; 85" dur="2s" repeatCount="indefinite" />
+      </circle>
+    </g>
+  </svg>
+</div></div>
 
 <div id="modal" onclick="if(event.target===this)closeModal()">
   <div class="modal-card">
